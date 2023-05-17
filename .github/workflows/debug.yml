@@ -18,3 +18,13 @@ jobs:
         run: echo '${{ toJSON(strategy) }}'
       - name: Dump matrix context
         run: echo '${{ toJSON(matrix) }}'
+        
+      - name: Run Python Tests
+        if: github.event.repository.language == 'Python'
+        run: pytest
+
+      - name: Run JS Tests
+        if: github.event.repository.language == 'JavaScript'
+        run: |
+          npm install
+          npm test
